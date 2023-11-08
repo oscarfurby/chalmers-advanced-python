@@ -17,12 +17,39 @@ print(adj2mat(adj_list))
 
 #Bonus: write a function that checks that the resulting matrix is n*n
 
-def mat2adj(mat):
-    
+def mat2adj(mat, vertices):
+    adj = {}
+    for key in vertices:
+        row = mat[key]
+        for val in range(len(row)):
+            if mat[key][val]: 
+                if key in adj:
+                    adj[key].append(val)
+                else:
+                    adj[key] = [val]
+    return adj
+
+print(mat2adj(adj2mat(adj_list), [0,1,2,3]))
+
 
 ## Question 3: equality between graphs
+def included(edges1, edges2):   #helper function
+    for (src, trg) in edges1:
+        if (not (src, trg) in edges2) and (not (trg, src) in edges2):
+            return False
+    return True
+
 def equal(edges1, edges2):
-    pass
+    if len(edges1) != len(edges2):
+        return False
+    if included(edges1, edges2) and included(edges2, edges1):
+        return True
+    return False
+
+print(equal([(1, 2), (2, 3)], [(3, 2), (2, 1)]))
+print(equal([(1, 2), (2, 3)], [(3, 2), (2, 2)]))
+print(equal([(1, 2), (2, 3)], [(3, 2), (2, 2), (2,1)]))
+
 
 ## Question 4: depth-first search
 def bfs(graph, current_node, visit_complete=[]):
