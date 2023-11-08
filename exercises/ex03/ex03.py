@@ -95,5 +95,33 @@ dfs(adj_list, 3)
 
 
 ## Question 5: multigraphs
+""" 1 2 3
+ 1: 0 1 0
+ 2: 0 0 2
+ 3: 0 0 0 """
+multi_edgelist = [(0,2), (1,2), (2,1)]
 
-multi_edgelist = [(1, 2), (2, 3), (3, 2)]
+def edges2adj(edges):
+    adj = {}
+    for (src, trg) in edges:    # src = source, trg = target
+        if src in adj:
+            adj[src].append(trg)
+        else:
+            adj[src] = [trg]
+    return adj
+
+print(edges2adj(multi_edgelist))
+
+
+def multi_adj2mat(adj):
+    n = len(adj)
+    matrix = []
+    for _ in range(n):
+        matrix.append([0] * n)
+    for key in range(len(adj)):
+        values = adj[key]
+        for value in range(len(values)):
+            matrix[key][value] += 1
+    return matrix
+
+print(multi_adj2mat(edges2adj(multi_edgelist)))
