@@ -4,10 +4,21 @@
 adj_list = {0: [1, 3, 2], 1: [0, 2], 2: [1, 0, 3], 3: [2]}
 
 def adj2mat(adj):
-    pass
+    n = len(adj)
+    matrix = []
+    for _ in range(n):
+        matrix.append([False] * n)
+    for (key, values) in adj.items():
+        for value in values:
+            matrix[key][value] = True
+    return matrix
+
+print(adj2mat(adj_list))
+
+#Bonus: write a function that checks that the resulting matrix is n*n
 
 def mat2adj(mat):
-    pass
+    
 
 ## Question 3: equality between graphs
 def equal(edges1, edges2):
